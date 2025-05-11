@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modern Portfolio</title>
+    <style>
+        /* Reset and base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background-color: #121212cc;
+            z-index: 1000;
+        }
+        header h1 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            color: #4fc3f7;
+            cursor: default;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        nav a:hover, nav a:focus {
+            color: #4fc3f7;
+            outline: none;
+        }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem 4rem;
+        }
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+            color: #4fc3f7;
+        }
+        .hero p {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: #bbb;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Projects Section */
+        section#projects {
+            padding: 3rem 0;
+        }
+        section#projects h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #4fc3f7;
+        }
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover, .project-card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px #4fc3f7cc;
+            outline: none;
+        }
+        .project-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #333;
+        }
+        .project-content {
+            padding: 1rem 1.25rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .project-content h4 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #4fc3f7;
+        }
+        .project-content p {
+            flex-grow: 1;
+            font-size: 0.95rem;
+            color: #ccc;
+            margin: 0.5rem 0 1rem;
+        }
+        .project-content a {
+            align-self: flex-start;
+            padding: 0.5rem 1rem;
+            background-color: #4fc3f7;
+            border-radius: 5px;
+            color: #121212;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .project-content a:hover, .project-content a:focus {
+            background-color: #1c92d2;
+            outline: none;
+        }
+        /* Contact Section */
+        section#contact {
+            background-color: #1e1e1e;
+            padding: 3rem 1rem 4rem;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        section#contact h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #4fc3f7;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #bbb;
+        }
+        input, textarea {
+            font-family: inherit;
+            padding: 0.6rem 0.75rem;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        input:focus, textarea:focus {
+            outline: 2px solid #4fc3f7;
+            background-color: #222;
+            color: #e0e0e0;
+        }
+        button[type="submit"] {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #4fc3f7;
+            color: #121212;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover, button[type="submit"]:focus {
+            background-color: #1c92d2;
+            outline: none;
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            color: #666;
+            font-size: 0.875rem;
+            user-select: none;
+        }
+        /* Responsive for mobile */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav {
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+            nav a {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .project-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container" role="banner">
+        <h1 tabindex="0">Your Name</h1>
+        <nav aria-label="Primary navigation">
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+        <section class="hero" aria-label="Introduction">
+            <h2>Hello, I'm Your Name</h2>
+            <p>A passionate web developer crafting modern and responsive websites and apps.</p>
+        </section>
+
+        <section id="projects" aria-labelledby="projects-title">
+            <h3 id="projects-title">My Projects</h3>
+            <div class="project-list">
+                <article class="project-card" tabindex="0" aria-label="Project: Portfolio Website">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Screenshot of portfolio website" class="project-image" />
+                    <div class="project-content">
+                        <h4>Portfolio Website</h4>
+                        <p>A sleek, single-page portfolio website with smooth scrolling and responsive layout.</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
+                </article>
+                <article class="project-card" tabindex="0" aria-label="Project: Task Manager App">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80" alt="Screenshot of task manager app" class="project-image" />
+                    <div class="project-content">
+                        <h4>Task Manager App</h4>
+                        <p>A progressive web app to organize daily tasks with local storage persistence.</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
+                </article>
+                <article class="project-card" tabindex="0" aria-label="Project: Blog Platform">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Screenshot of blog platform" class="project-image" />
+                    <div class="project-content">
+                        <h4>Blog Platform</h4>
+                        <p>A content management platform with user authentication, posting, and editing features.</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+            <h3 id="contact-title">Contact Me</h3>
+            <form id="contact-form" action="https://formspree.io/f/mnqyjkqz" method="POST" novalidate>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required aria-required="true" placeholder="Your full name" />
+
+                <label for="email">Email</label>
+                <input type="email" name="_replyto" id="email" required aria-required="true" placeholder="your.email@example.com" />
+
+                <label for="message">Message</label>
+                <textarea name="message" id="message" rows="5" required aria-required="true" placeholder="Write your message here"></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        &copy; 2024 Your Name. All rights reserved.
+    </footer>
+
+    <script>
+        // Client-side validation and feedback
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                alert('Please fill out all required fields correctly.');
+            } else {
+                // Optional: show loading or disable submit
+                // Formspree will handle submission and response
+            }
+        });
+    </script>
+</body>
+</html>
+
+```
